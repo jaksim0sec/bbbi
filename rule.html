@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>바보상자 • 이미지호스팅</title>
+  <link rel="shortcut icon" href="https://i.ibb.co/80mBhw1/003-5.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200&display=swap" rel="stylesheet">
+  <style>
+    .themeFont {
+      font-family: "IBM Plex Sans KR", sans-serif;
+      font-weight: bold;
+      font-style: normal;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "IBM Plex Sans KR", sans-serif;
+      /*background-color: #f4f4f4*/;
+    }
+
+    div,
+    span {
+      transition: all 0.2s ease;
+    }
+
+    #header {
+      display: flex;
+      width: 95%;
+      height: 70px;
+      margin: 1% auto;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #logo {
+      display: flex;
+      width: 70px;
+      height: 70px;
+      margin-right: auto;
+    }
+
+    #menu {
+      display: flex;
+      width: auto;
+      height: 70px;
+      margin-left: auto;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #m-header-menubutton {
+      display: none;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .header-button-cover {
+      margin: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button,label {
+      height: 40px;
+      width: 100px;
+      border-radius: 10px;
+      border: none;
+      transition: all 0.7s ease;
+      font-size: 16px;
+    }
+
+    .button-low {
+      background-color: #ffffff;
+      color: #333333;
+    }
+
+    .button-mid {
+      background-color: #333333;
+      color: #ffffff;
+    }
+
+    .button-low:hover {
+      box-shadow: inset 0px 0px 10px rgba(200, 200, 200, 0.5);
+      border: 3px solid rgba(220, 220, 220, 0.7);
+      border-radius: 20px;
+    }
+
+    .button-mid:hover {
+      border: 3px solid rgba(100, 100, 100, 0.7);
+      background-color: rgba(50, 50, 50, 0.8);
+      border-radius: 15px;
+    }
+
+    #m-header-menu {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+
+    #m-header-menu-cover {
+      position: absolute;
+      width: 130px;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #ffffff;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0px 0px 10px gray;
+      opacity: 1;
+      right: 10px;
+      top: 10px;
+    }
+
+    .header-button-cover {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      #header {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #menu {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        display: none;
+      }
+
+      #m-header-menubutton {
+        display: flex;
+        padding: 7px;
+      }
+    }
+
+    #m-header-menubutton:hover {
+      box-shadow: inset 0px 0px 10px rgba(200, 200, 200, 1);
+      border-radius: 20px;
+    }
+
+    #bodyer {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .highlight {
+      font-weight: 400;
+      color: #FF9934;
+    }
+
+    .card {
+      position: absolute;
+      right: 2%;
+    }
+
+    .card:nth-child(odd) {
+      left: 2%;
+    }
+
+    .file-upload {
+      display: inline-block;
+      position: relative;
+    }
+
+    .file-upload input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    
+    ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      color: #FF9934;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <span id="logo"><img src="https://ifh.cc/g/s2VbZZ.png" width="70px" height="70px" alt="Logo"></span>
+    <span id="menu">
+      <span class="header-button-cover"><button class="button-low" onclick=""><div>소개</div></button></span>
+      <span class="header-button-cover"><button class="button-low" onclick=""><div>공지</div></button></span>
+      <span class="header-button-cover"><button class="button-low" onclick=""><div>소통</div></button></span>
+      <span class="header-button-cover"><button class="button-mid" onclick="movePage('/')"><div>+ 업로드</div></button></span>
+    </span>
+    <span id="m-header-menubutton" onclick="mobileHeader();"><img src="https://ifh.cc/g/NTSB1R.png" width="30px" height="30px" alt="Menu"></span>
+  </div>
+
+  <div id="m-header-menu" onclick="mobileHeader();">
+    <div id="m-header-menu-cover">
+      <div class="header-button-cover"><button class="button-low" onclick=""><div>소개</div></button></div>
+      <div class="header-button-cover"><button class="button-low" onclick=""><div>공지</div></button></div>
+      <div class="header-button-cover"><button class="button-low" onclick=""><div>소통</div></button></div>
+      <div class="header-button-cover"><button class="button-mid" onclick="movePage('/')"><div>+ 업로드</div></button></div>
+    </div>
+  </div>
+
+  <hr style="width: 95%; border: 0.5px solid #7d7d7d;">
+
+  <div id="bodyer">
+    <h1>이미지 호스팅 서비스 이용정책</h1>
+
+    <h2>1. 서비스 제공 및 이용 목적</h2>
+    <p>본 서비스는 사용자가 이미지를 업로드하고 이를 다른 사용자와 공유할 수 있는 공간을 제공합니다. 서비스는 이미지 파일의 저장, 조회, 링크 생성을 지원합니다. 불법적이거나 부적절한 이미지를 업로드할 수 없습니다.</p>
+
+    <h2>2. 허용되는 이미지 유형</h2>
+    <p>타인의 저작권을 침해하지 않는 이미지, 불법적이지 않은 이미지, 사회적으로 용인될 수 있는 이미지만 업로드할 수 있습니다. 부적절한 이미지(예: 음란물, 폭력적이거나 혐오스러운 내용)는 금지됩니다.</p>
+
+    <h2>3. 금지된 활동</h2>
+    <ul>
+      <li><span class="highlight">음란물 및 불법 콘텐츠</span>: 음란물, 성인물, 아동 음란물, 불법 촬영물 등의 이미지를 업로드하는 것은 금지됩니다. 형법 제243조 및 제244조에 따라 처벌될 수 있습니다.</li>
+      <li><span class="highlight">저작권 침해</span>: 저작권법 제136조에 따라 타인의 저작권을 침해하는 이미지를 업로드하는 행위는 금지됩니다.</li>
+      <li><span class="highlight">사생활 침해 및 명예훼손</span>: 타인의 사생활을 침해하거나 명예를 훼손할 수 있는 이미지를 업로드하는 행위는 정보통신망법 제44조의7에 의해 금지됩니다.</li>
+      <li><span class="highlight">불법 촬영물</span>: 동의 없이 촬영된 영상을 업로드하는 행위는 성폭력처벌법 제14조에 의해 처벌될 수 있습니다.</li>
+    </ul>
+
+    <h2>4. 이미지 검수 및 삭제 절차</h2>
+    <p>업로드된 이미지가 부적절하거나 위반 사항이 발견된 경우, 사전 경고 없이 삭제될 수 있습니다. 서비스는 필요에 따라 사용자 계정을 차단할 수 있습니다.</p>
+
+    <h2>5. 사용자 책임 및 의무</h2>
+    <p>사용자는 서비스에 업로드하는 이미지에 대한 책임을 지며, 저작권, 명예훼손, 사생활 침해와 관련된 법적 분쟁에 책임이 있습니다.</p>
+
+    <h2>6. 데이터 보호 및 보안</h2>
+    <p>서비스는 기술적·관리적 조치를 통해 사용자의 이미지를 보호하는 것을 최대한으로 노력할 것 이며, 개인정보는 관련 법령에 따라 보호됩니다.</p>
+
+    <h2>7. 법적 근거</h2>
+    <ul>
+      <li><span class="highlight">정보통신망 이용촉진 및 정보보호 등에 관한 법률</span>: 불법 정보 유통 금지 및 개인정보 보호.</li>
+      <li><span class="highlight">저작권법</span>: 타인의 저작물을 무단으로 사용, 배포하는 행위를 금지.</li>
+      <li><span class="highlight">형법 제243조 및 제244조</span>: 음란물 반포 및 제작 처벌 규정.</li>
+      <li><span class="highlight">청소년보호법</span>: 청소년 유해매체물의 유통 금지.</li>
+      <li><span class="highlight">성폭력처벌법</span>: 동의 없는 촬영물 유통 및 소지 금지.</li>
+    </ul>
+
+    <h2>8. 정책의 변경</h2>
+    <p>이용정책은 법령 개정이나 서비스 운영방침 변경에 따라 변경될 수 있으며, 공지를 통해 사용자에게 알립니다.</p>
+  </div>
+
+  <script>
+
+    function movePage(page) {
+      window.location.href = page;
+    //window.alert("아직 개발중...")
+    }
+
+    function getHTML(name) {
+      return document.querySelector(name);
+    }
+
+    function mobileHeader() {
+      const menu = getHTML('#m-header-menu');
+      if (menu.style.display === 'flex') {
+        menu.style.opacity = '0';
+        setTimeout(() => {
+          menu.style.display = 'none';
+        }, 300);
+      } else {
+        menu.style.display = 'flex';
+        setTimeout(() => {
+          menu.style.opacity = '1';
+        }, 300);
+      }
+    }
+
+    function checkScreenSize() {
+      const menuButton = document.getElementById('m-header-menubutton');
+      const menu = document.getElementById('menu');
+      if (window.innerWidth <= 768) {
+        menuButton.style.display = 'flex';
+        menu.style.display = 'none';
+      } else {
+        menuButton.style.display = 'none';
+        menu.style.display = 'flex';
+        document.getElementById('m-header-menu').style.display = 'none';
+      }
+    }
+
+    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener('load', checkScreenSize);
+  </script>
+</body>
+
+</html>
