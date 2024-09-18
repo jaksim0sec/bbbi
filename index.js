@@ -35,6 +35,10 @@ app.use(express.static('public'));
 app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'index.html'))
 })
+
+app.get('/rule',(req,res)=>{
+    res.sendFile(path.join(__dirname,'rule.html'))
+})
 // 이미지 업로드 핸들러 (fetch에서 받기)
 app.post('/upload', upload.single('image'), (req, res) => {
     const filePath = `${project.info.name}/view.html?file=${req.file.filename}`;
