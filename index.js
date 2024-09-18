@@ -8,7 +8,7 @@ const port = 10000;
 
 const project = {
     info:{
-        name:"https://babboximg.onrender.com/"
+        name:"https://babboximg.onrender.com"
     }
 }
 
