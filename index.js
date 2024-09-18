@@ -47,6 +47,25 @@ app.get('/images/:filename', (req, res) => {
     res.sendFile(filePath);
 });
 
+app.delete('/imagesKill/:filename', (req, res) => {
+    const filePath = path.join(__dirname, 'uploads', req.params.filename);
+    
+    // 파일이 존재하는지 확인 후 삭제
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+        if (err) {
+            return res.status(404).json({ message: '이미지를 찾을 수 없습니다.' });
+        }
+
+        fs.unlink(filePath, (err) => {
+            if (err) {
+                return res.status(500).json({ message: '이미지를 삭제하는 중 오류가 발생했습니다.' });
+            }
+
+            res.json({ message: '이미지가 성공적으로 삭제되었습니다.' });
+        });
+    });
+});
+
 // EJS 설정
 const ejs = require('ejs');
 app.set('view engine', 'ejs');
