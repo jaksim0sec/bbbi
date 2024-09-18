@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>바보상자 CREW • Discord 봇</title>
+  <link rel="shortcut icon" href="https://i.ibb.co/80mBhw1/003-5.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200&display=swap" rel="stylesheet">
+  <style>
+    .themeFont {
+      font-family: "IBM Plex Sans KR", sans-serif;
+      font-weight: bold;
+      font-style: normal;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "IBM Plex Sans KR", sans-serif;
+      /*background-color: #f4f4f4*/;
+    }
+
+    div,
+    span {
+      transition: all 0.2s ease;
+    }
+
+    #header {
+      display: flex;
+      width: 95%;
+      height: 70px;
+      margin: 1% auto;
+      position: relative;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #logo {
+      display: flex;
+      width: 70px;
+      height: 70px;
+      margin-right: auto;
+    }
+
+    #menu {
+      display: flex;
+      width: auto;
+      height: 70px;
+      margin-left: auto;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #m-header-menubutton {
+      display: none;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .header-button-cover {
+      margin: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button,label {
+      height: 40px;
+      width: 100px;
+      border-radius: 10px;
+      border: none;
+      transition: all 0.7s ease;
+      font-size: 16px;
+    }
+
+    .button-low {
+      background-color: #ffffff;
+      color: #333333;
+    }
+
+    .button-mid {
+      background-color: #333333;
+      color: #ffffff;
+    }
+
+    .button-low:hover {
+      box-shadow: inset 0px 0px 10px rgba(200, 200, 200, 0.5);
+      border: 3px solid rgba(220, 220, 220, 0.7);
+      border-radius: 20px;
+    }
+
+    .button-mid:hover {
+      border: 3px solid rgba(100, 100, 100, 0.7);
+      background-color: rgba(50, 50, 50, 0.8);
+      border-radius: 15px;
+    }
+
+    #m-header-menu {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+
+    #m-header-menu-cover {
+      position: absolute;
+      width: 130px;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #ffffff;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0px 0px 10px gray;
+      opacity: 1;
+      right: 10px;
+      top: 10px;
+    }
+
+    .header-button-cover {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      #header {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #menu {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        display: none;
+      }
+
+      #m-header-menubutton {
+        display: flex;
+        padding: 7px;
+      }
+    }
+
+    #m-header-menubutton:hover {
+      box-shadow: inset 0px 0px 10px rgba(200, 200, 200, 1);
+      border-radius: 20px;
+    }
+
+    #bodyer {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .highlight {
+      font-weight: 400;
+      color: #FF9934;
+    }
+
+    .card {
+      position: absolute;
+      right: 2%;
+    }
+
+    .card:nth-child(odd) {
+      left: 2%;
+    }
+
+    .file-upload {
+      display: inline-block;
+      position: relative;
+    }
+
+    .file-upload input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header">
+    <span id="logo"><img src="https://ifh.cc/g/s2VbZZ.png" width="70px" height="70px" alt="Logo"></span>
+    <span id="menu">
+      <span class="header-button-cover"><button class="button-low" onclick="movePage('/aboutbot.html')"><div>소개</div></button></span>
+      <span class="header-button-cover"><button class="button-low" onclick="movePage('/howtouse.html')"><div>공지</div></button></span>
+      <span class="header-button-cover"><button class="button-low" onclick="movePage('/server.html')"><div>소통</div></button></span>
+      <span class="header-button-cover"><button class="button-mid" onclick="movePage('/')"><div>+ 업로드</div></button></span>
+    </span>
+    <span id="m-header-menubutton" onclick="mobileHeader();"><img src="https://ifh.cc/g/NTSB1R.png" width="30px" height="30px" alt="Menu"></span>
+  </div>
+
+  <div id="m-header-menu" onclick="mobileHeader();">
+    <div id="m-header-menu-cover">
+      <div class="header-button-cover"><button class="button-low" onclick="movePage('/aboutbot.html')"><div>소개</div></button></div>
+      <div class="header-button-cover"><button class="button-low" onclick="movePage('/howtouse.html')"><div>공지</div></button></div>
+      <div class="header-button-cover"><button class="button-low" onclick="movePage('/server.html')"><div>소통</div></button></div>
+      <div class="header-button-cover"><button class="button-mid" onclick="movePage('/')"><div>+ 업로드</div></button></div>
+    </div>
+  </div>
+
+  <hr style="width: 95%; border: 0.5px solid #7d7d7d;">
+
+  <div id="bodyer">
+      <img src="/images/<%= filename %>" alt="업로드된 이미지">
+  </div>
+
+  <script>
+
+    function movePage(page) {
+      //window.location.href = page;
+    window.alert("아직 개발중...")
+    }
+
+    function getHTML(name) {
+      return document.querySelector(name);
+    }
+
+    function mobileHeader() {
+      const menu = getHTML('#m-header-menu');
+      if (menu.style.display === 'flex') {
+        menu.style.opacity = '0';
+        setTimeout(() => {
+          menu.style.display = 'none';
+        }, 300);
+      } else {
+        menu.style.display = 'flex';
+        setTimeout(() => {
+          menu.style.opacity = '1';
+        }, 300);
+      }
+    }
+
+    function checkScreenSize() {
+      const menuButton = document.getElementById('m-header-menubutton');
+      const menu = document.getElementById('menu');
+      if (window.innerWidth <= 768) {
+        menuButton.style.display = 'flex';
+        menu.style.display = 'none';
+      } else {
+        menuButton.style.display = 'none';
+        menu.style.display = 'flex';
+        document.getElementById('m-header-menu').style.display = 'none';
+      }
+    }
+
+    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener('load', checkScreenSize);
+  </script>
+</body>
+
+</html>
