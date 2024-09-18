@@ -108,7 +108,7 @@
 
   <div id="bodyer">
     <center>
-      <img src="/images/<%= filename %>" alt="업로드된 이미지">
+      <img src="/images/<%= filename %>" alt="검열된 이미지">
       <div>
         <button onclick="kill('<%= filename %>');" class="button-mid">신고</button>
       </div>
@@ -125,7 +125,6 @@
           console.log(data.message);
           if (data.message === '이미지가 성공적으로 삭제되었습니다.') {
               alert('Image deleted successfully');
-              // Optionally, you can also remove the image element from the DOM
               document.querySelector('img').remove();
           }
       })
