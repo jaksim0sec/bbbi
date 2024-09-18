@@ -4,11 +4,11 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const port = 3000;
+const port = 10000;
 
 const project = {
     info:{
-        name:"https://503a91ff-481d-4035-b627-2c5fe33a0354-00-1hayct3269kd.riker.replit.dev/"
+        name:"https://babboximg.onrender.com/"
     }
 }
 
