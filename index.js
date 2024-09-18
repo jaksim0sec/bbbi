@@ -38,6 +38,7 @@ app.get('/',(req,res)=>{
 // 이미지 업로드 핸들러 (fetch에서 받기)
 app.post('/upload', upload.single('image'), (req, res) => {
     const filePath = `${project.info.name}/view.html?file=${req.file.filename}`;
+    console.log(`${req.ip} -> ${req.file.filename}`)
     res.json({ message: '이미지가 업로드되었습니다!', link: filePath });
 });
 
