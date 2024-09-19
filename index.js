@@ -8,7 +8,7 @@ const app = express();
 
 const project = {
     info: {
-        name: "https://babboximg.onrender.com",
+        name: "https://baboboximg.onrender.com",
         port: 10000
     }
 };
