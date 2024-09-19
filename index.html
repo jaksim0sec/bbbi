@@ -218,7 +218,7 @@
       <span class="header-button-cover"><button class="button-low" onclick="movePage('/aboutbot.html')"><div>소개</div></button></span>
       <span class="header-button-cover"><button class="button-low" onclick="movePage('/howtouse.html')"><div>공지</div></button></span>
       <span class="header-button-cover"><button class="button-low" onclick="movePage('/server.html')"><div>소통</div></button></span>
-      <span class="header-button-cover"><button class="button-mid" onclick="movePage('/')"><div>+ 업로드</div></button></span>
+      <span class="header-button-cover"><button class="button-mid" onclick="window.location.href='/';"><div>+ 업로드</div></button></span>
     </span>
     <span id="m-header-menubutton" onclick="mobileHeader();"><img src="https://ifh.cc/g/NTSB1R.png" width="30px" height="30px" alt="Menu"></span>
   </div>
@@ -228,7 +228,7 @@
       <div class="header-button-cover"><button class="button-low" onclick="movePage('/aboutbot.html')"><div>소개</div></button></div>
       <div class="header-button-cover"><button class="button-low" onclick="movePage('/howtouse.html')"><div>공지</div></button></div>
       <div class="header-button-cover"><button class="button-low" onclick="movePage('/server.html')"><div>소통</div></button></div>
-      <div class="header-button-cover"><button class="button-mid" onclick="movePage('/')"><div>+ 업로드</div></button></div>
+      <div class="header-button-cover"><button class="button-mid" onclick="window.location.href='/';"><div>+ 업로드</div></button></div>
     </div>
   </div>
 
@@ -259,18 +259,16 @@
   </div>
 
   <script>
-    // 모바일 헤더 메뉴 토글
+
     function mobileHeader() {
       const menu = document.getElementById('m-header-menu');
       menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
     }
 
-    // 페이지 이동 기능 (현재 개발 중)
     function movePage(page) {
       window.alert("아직 개발중...");
     }
 
-    // 이미지 미리보기
     const imageInput = document.getElementById('imageInput');
     const imagePreview = document.getElementById('imagePreview');
 
@@ -289,7 +287,7 @@
       }
     });
 
-    // 파일 업로드
+    
     const uploadSubmitButton = document.getElementById('uploadSubmitButton');
     uploadSubmitButton.addEventListener('click', () => {
       const file = imageInput.files[0];
