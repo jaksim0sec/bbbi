@@ -21,7 +21,8 @@
       font-family: "IBM Plex Sans KR", sans-serif;
     }
 
-    div, span {
+    div,
+    span {
       transition: all 0.2s ease;
     }
 
@@ -51,7 +52,22 @@
       align-items: center;
     }
 
-    button, label {
+    #m-header-menubutton {
+      display: none;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .header-button-cover {
+      margin: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button,label {
       height: 40px;
       width: 100px;
       border-radius: 10px;
@@ -82,14 +98,117 @@
       border-radius: 15px;
     }
 
+    #m-header-menu {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+    }
+
+    #m-header-menu-cover {
+      position: absolute;
+      width: 130px;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #ffffff;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0px 0px 10px gray;
+      opacity: 1;
+      right: 10px;
+      top: 10px;
+    }
+
+    .header-button-cover {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      #header {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #menu {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        display: none;
+      }
+
+      #m-header-menubutton {
+        display: flex;
+        padding: 7px;
+      }
+    }
+
+    #m-header-menubutton:hover {
+      box-shadow: inset 0px 0px 10px rgba(200, 200, 200, 1);
+      border-radius: 20px;
+    }
+
     #bodyer {
       text-align: center;
       padding: 20px;
     }
 
-    img {
-      max-width: 80%;
+    .highlight {
+      font-weight: 400;
+      color: #FF9934;
     }
+
+    .card {
+      position: absolute;
+      right: 2%;
+    }
+
+    .card:nth-child(odd) {
+      left: 2%;
+    }
+
+    .file-upload {
+      display: inline-block;
+      position: relative;
+    }
+
+    .file-upload input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    #imagePreview {
+      display: none;
+      width: 200px;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px #00000040;
+    }
+
+    #result {
+      width: 200px;
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 2px #00000040;
+      display: none;
+      height: auto;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      padding: 10px;
+      text-align: left;
+      margin-top:10px;
+    }
+    button{margin:10px;}
   </style>
 </head>
 
@@ -100,34 +219,55 @@
       <span class="header-button-cover"><button class="button-low" onclick="movePage('/aboutbot.html')"><div>소개</div></button></span>
       <span class="header-button-cover"><button class="button-low" onclick="movePage('/howtouse.html')"><div>공지</div></button></span>
       <span class="header-button-cover"><button class="button-low" onclick="movePage('/server.html')"><div>소통</div></button></span>
-      <span class="header-button-cover"><button class="button-mid" onclick="window.location.href = '/';"><div>+ 업로드</div></button></span>
+      <span class="header-button-cover"><button class="button-mid" onclick="window.location.href='/';"><div>+ 업로드</div></button></span>
     </span>
+    <span id="m-header-menubutton" onclick="mobileHeader();"><img src="https://ifh.cc/g/NTSB1R.png" width="30px" height="30px" alt="Menu"></span>
+  </div>
+
+  <div id="m-header-menu" onclick="mobileHeader();">
+    <div id="m-header-menu-cover">
+      <div class="header-button-cover"><button class="button-low" onclick="movePage('/aboutbot.html')"><div>소개</div></button></div>
+      <div class="header-button-cover"><button class="button-low" onclick="movePage('/howtouse.html')"><div>공지</div></button></div>
+      <div class="header-button-cover"><button class="button-low" onclick="movePage('/server.html')"><div>소통</div></button></div>
+      <div class="header-button-cover"><button class="button-mid" onclick="window.location.href='/';"><div>+ 업로드</div></button></div>
+    </div>
   </div>
 
   <hr style="width: 95%; border: 0.5px solid #7d7d7d;">
 
   <div id="bodyer">
-    <center>
-    <h2>이미지 결과👏</h2>
-      <img src="/images/<%= filename %>" alt="삭제된 이미지">
-      <div>
-        <button onclick="kill('<%= filename %>');" class="button-mid">신고</button>
-      </div>
-    </center>
+    <div id="content">
+      <center>
+        <h2>이미지 결과👏</h2>
+          <img src="/images/<%= filename %>" alt="삭제된 이미지" style = "box-shadow:0px 0px 4px #00000030; border-radius:5px;border:none;width:60%;">
+          <div>
+            <button onclick="kill('<%= filename %>');" class="button-mid">신고</button>
+          </div>
+        </center>
+    </div>
   </div>
 
   <script>
+    
+    function mobileHeader() {
+      const menu = document.getElementById('m-header-menu');
+      menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+    }
+
+    function movePage(page) {
+      window.alert("아직 개발중...");
+    }
+  </script>
+  <script>
     function kill(filename) {
-      fetch(`/imagesKill/${filename}`, {
-          method: 'DELETE',
+      fetch(`/report/${filename}`, {
+          method: 'POST',
+          credentials: 'include' 
       })
       .then(response => response.json())
       .then(data => {
           console.log(data.message);
-          if (data.message === '이미지가 성공적으로 삭제되었습니다.') {
-              alert('Image deleted successfully');
-              document.querySelector('img').remove();
-          }
+          alert(data.message);
       })
       .catch(error => {
           console.error('Error:', error);
