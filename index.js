@@ -56,7 +56,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
         warning: 0, // 초기 경고 수
         status: 'active' // 이미지 상태
     };
-    console.log(${req.ip} -> `${req.file.filename}`);
+    console.log(`${req.ip} -> ${req.file.filename}`);
     res.json({ message: '이미지가 업로드되었습니다!', link: filePath });
 });
 
