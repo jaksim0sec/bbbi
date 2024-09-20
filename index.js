@@ -3,7 +3,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const session = require('express-session');
-const AWS = require('aws-sdk');
 
 const app = express();
 
@@ -13,15 +12,6 @@ const project = {
         port: 10000
     }
 };
-
-// AWS Rekognition 클라이언트 설정
-AWS.config.update({
-    accessKeyId: 'YOUR_AWS_ACCESS_KEY_ID',
-    secretAccessKey: 'YOUR_AWS_SECRET_ACCESS_KEY',
-    region: 'YOUR_AWS_REGION' // 예: 'us-west-2'
-});
-
-const rekognition = new AWS.Rekognition();
 
 // multer 설정
 const storage = multer.diskStorage({
@@ -60,41 +50,14 @@ app.get('/rule', (req, res) => {
 });
 
 // 이미지 업로드 핸들러 (fetch에서 받기)
-app.post('/upload', upload.single('image'), async (req, res) => {
-    const filePath = `${project.info.name}/view?file=${req.file.filename}`;
+app.post('/upload', upload.single('image'), (req, res) => {
+    const filePath = ${project.info.name}/view?file=${req.file.filename};
     imgFileList[req.file.filename] = {
-        warning: 0,
-        status: 'active'
+        warning: 0, // 초기 경고 수
+        status: 'active' // 이미지 상태
     };
-
-    console.log(`${req.ip} -> ${req.file.filename}`);
-
-    // 이미지 감지
-    const params = {
-        Image: {
-            S3Object: {
-                Bucket: 'YOUR_S3_BUCKET_NAME', // S3 버킷 이름
-                Name: req.file.filename // 파일 이름
-            }
-        },
-        MinConfidence: 75 // 최소 신뢰도 설정
-    };
-
-    try {
-        const result = await rekognition.detectModerationLabels(params).promise();
-
-        // 감지 결과 처리
-        if (result.ModerationLabels.length > 0) {
-            // 성인 콘텐츠로 감지된 경우
-            fs.unlinkSync(path.join(__dirname, 'uploads', req.file.filename)); // 업로드한 파일 삭제
-            return res.status(400).json({ message: '업로드된 이미지에 성인 콘텐츠가 감지되었습니다.' });
-        }
-
-        res.json({ message: '이미지가 업로드되었습니다!', link: filePath });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: '이미지 감지 중 오류가 발생했습니다.' });
-    }
+    console.log(${req.ip} -> ${req.file.filename});
+    res.json({ message: '이미지가 업로드되었습니다!', link: filePath });
 });
 
 // 업로드된 이미지 서빙
@@ -125,16 +88,16 @@ app.post('/report/:filename', (req, res) => {
     if (req.session.reported[filename]) {
         return res.status(400).json({ message: '이 이미지는 이미 신고되었습니다.' });
     }
-
+    console.log(fileInfo.warning)
     req.session.reported[filename] = true;
     fileInfo.warning += 1;
 
     if (fileInfo.warning >= 3) {
         fileInfo.status = 'blinded'; // 이미지 블라인드 처리
-        console.log(`이미지 ${filename} 가 블라인드 처리되었습니다.`);
+        console.log(이미지 ${filename} 가 블라인드 처리되었습니다.);
     }
 
-    res.json({ message: `이미지 신고가 접수되었습니다. 현재 신고 수: ${fileInfo.warning}` });
+    res.json({ message: 이미지 신고가 접수되었습니다. 현재 신고 수: ${fileInfo.warning} });
 });
 
 // 업로드된 이미지 삭제 핸들러
@@ -170,5 +133,5 @@ app.get('/view', (req, res) => {
 });
 
 app.listen(project.info.port, () => {
-    console.log(`서버가 http://localhost:${project.info.port}에서 실행 중입니다.`);
+    console.log(서버가 http://localhost:${project.info.port}에서 실행 중입니다.);
 });
