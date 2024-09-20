@@ -51,12 +51,12 @@ app.get('/rule', (req, res) => {
 
 // 이미지 업로드 핸들러 (fetch에서 받기)
 app.post('/upload', upload.single('image'), (req, res) => {
-    const filePath = ${project.info.name}/view?file=${req.file.filename};
+    const filePath = `${project.info.name}/view?file=${req.file.filename}`;
     imgFileList[req.file.filename] = {
         warning: 0, // 초기 경고 수
         status: 'active' // 이미지 상태
     };
-    console.log(${req.ip} -> ${req.file.filename});
+    console.log(${req.ip} -> `${req.file.filename}`);
     res.json({ message: '이미지가 업로드되었습니다!', link: filePath });
 });
 
@@ -94,10 +94,10 @@ app.post('/report/:filename', (req, res) => {
 
     if (fileInfo.warning >= 3) {
         fileInfo.status = 'blinded'; // 이미지 블라인드 처리
-        console.log(이미지 ${filename} 가 블라인드 처리되었습니다.);
+        console.log(`이미지 ${filename} 가 블라인드 처리되었습니다.`);
     }
 
-    res.json({ message: 이미지 신고가 접수되었습니다. 현재 신고 수: ${fileInfo.warning} });
+    res.json({ message: `이미지 신고가 접수되었습니다. 현재 신고 수: ${fileInfo.warning}` });
 });
 
 // 업로드된 이미지 삭제 핸들러
@@ -133,5 +133,5 @@ app.get('/view', (req, res) => {
 });
 
 app.listen(project.info.port, () => {
-    console.log(서버가 http://localhost:${project.info.port}에서 실행 중입니다.);
+    console.log(`서버가 http://localhost:${project.info.port}에서 실행 중입니다.`);
 });
