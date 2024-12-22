@@ -129,7 +129,7 @@ app.set('views', path.join(__dirname));
 // 이미지 보기 페이지 핸들러
 app.get('/v', (req, res) => {
     const filename = req.query.file;
-    res.render('view', { filename });
+    res.render('v', { filename });
 });
 
 app.listen(project.info.port, () => {
