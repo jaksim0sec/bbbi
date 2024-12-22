@@ -51,7 +51,7 @@ app.get('/rule', (req, res) => {
 
 // 이미지 업로드 핸들러 (fetch에서 받기)
 app.post('/upload', upload.single('image'), (req, res) => {
-    const filePath = `${project.info.name}/view?file=${req.file.filename}`;
+    const filePath = `${project.info.name}/v?file=${req.file.filename}`;
     imgFileList[req.file.filename] = {
         warning: 0, // 초기 경고 수
         status: 'active' // 이미지 상태
