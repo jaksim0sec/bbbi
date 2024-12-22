@@ -8,7 +8,7 @@ const app = express();
 
 const project = {
     info: {
-        name: "https://baboboximg.onrender.com",
+        name: "https://bbbi.onrender.com",
         port: 10000
     }
 };
@@ -51,7 +51,7 @@ app.get('/rule', (req, res) => {
 
 // 이미지 업로드 핸들러 (fetch에서 받기)
 app.post('/upload', upload.single('image'), (req, res) => {
-    const filePath = `${project.info.name}/v?file=${req.file.filename}`;
+    const filePath = `${project.info.name}/v?f=${req.file.filename}`;
     imgFileList[req.file.filename] = {
         warning: 0, // 초기 경고 수
         status: 'active' // 이미지 상태
@@ -127,7 +127,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname));
 
 // 이미지 보기 페이지 핸들러
-app.get('/view', (req, res) => {
+app.get('/v', (req, res) => {
     const filename = req.query.file;
     res.render('view', { filename });
 });
