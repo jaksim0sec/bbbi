@@ -128,7 +128,7 @@ app.set('views', path.join(__dirname));
 
 // 이미지 보기 페이지 핸들러
 app.get('/v', (req, res) => {
-    const filename = req.query.file;
+    const filename = req.query.f;
     res.render('v', { filename });
 });
 
